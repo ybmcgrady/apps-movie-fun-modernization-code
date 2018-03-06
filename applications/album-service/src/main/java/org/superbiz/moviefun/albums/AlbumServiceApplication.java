@@ -1,4 +1,4 @@
-package com.superbiz.moviefun.albums;
+package org.superbiz.moviefun.albums;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;

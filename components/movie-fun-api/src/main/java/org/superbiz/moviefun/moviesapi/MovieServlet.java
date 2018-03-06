@@ -26,9 +26,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * @version $Revision$ $Date$
- */
 @Component
 public class MovieServlet extends HttpServlet {
 
@@ -36,10 +33,10 @@ public class MovieServlet extends HttpServlet {
 
     public static int PAGE_SIZE = 5;
 
-    private MoviesClient moviesBean;
+    private MoviesClient moviesClient;
 
-    public MovieServlet(MoviesClient moviesBean) {
-        this.moviesBean = moviesBean;
+    public MovieServlet(MoviesClient moviesClient) {
+        this.moviesClient = moviesClient;
     }
 
     @Override
@@ -63,9 +60,9 @@ public class MovieServlet extends HttpServlet {
             int rating = Integer.parseInt(request.getParameter("rating"));
             int year = Integer.parseInt(request.getParameter("year"));
 
-            MovieInfo movie = new MovieInfo(title, director, genre, rating, year);
+            MovieInfo movie = new MovieInfo(null, title, director, genre, rating, year);
 
-            moviesBean.addMovie(movie);
+            moviesClient.addMovie(movie);
             response.sendRedirect("moviefun");
             return;
 
@@ -73,7 +70,7 @@ public class MovieServlet extends HttpServlet {
 
             String[] ids = request.getParameterValues("id");
             for (String id : ids) {
-                moviesBean.deleteMovieId(new Long(id));
+                moviesClient.deleteMovieId(new Long(id));
             }
 
             response.sendRedirect("moviefun");
@@ -86,11 +83,11 @@ public class MovieServlet extends HttpServlet {
             int count = 0;
 
             if (StringUtils.isEmpty(key) || StringUtils.isEmpty(field)) {
-                count = moviesBean.countAll();
+                count = moviesClient.countAll();
                 key = "";
                 field = "";
             } else {
-                count = moviesBean.count(field, key);
+                count = moviesClient.count(field, key);
             }
 
             int page = 1;
@@ -117,9 +114,9 @@ public class MovieServlet extends HttpServlet {
             List<MovieInfo> range;
 
             if (StringUtils.isEmpty(key) || StringUtils.isEmpty(field)) {
-                range = moviesBean.findAll(start, PAGE_SIZE);
+                range = moviesClient.findAll(start, PAGE_SIZE);
             } else {
-                range = moviesBean.findRange(field, key, start, PAGE_SIZE);
+                range = moviesClient.findRange(field, key, start, PAGE_SIZE);
             }
 
             int end = start + range.size();

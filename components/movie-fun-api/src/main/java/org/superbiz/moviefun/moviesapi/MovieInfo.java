@@ -16,22 +16,16 @@ public class MovieInfo {
     public MovieInfo() {
     }
 
-    public MovieInfo(String title, String director, String genre, int rating, int year) {
-        this.director = director;
+    public MovieInfo(Long id, String title, String director, String genre, int rating, int year) {
+        this.id = id;
         this.title = title;
-        this.year = year;
+        this.director = director;
         this.genre = genre;
         this.rating = rating;
-    }
-
-    public MovieInfo(String director, String title, int year) {
-        this.director = director;
-        this.title = title;
         this.year = year;
     }
 
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
