@@ -1,0 +1,15 @@
+---
+memory: 512M
+instances: 1
+applications:
+- name: album-service
+  path: ../applications/album-service/build/libs/album-service-1.1.0-SNAPSHOT.jar
+  services:
+  - album-database
+  routes:
+    - route: album-service-boyu.apps.cumuluslabs.io/
+  env:
+    S3_ACCESSKEY: AKIAJPMYWVM3K36V7LWQ
+    S3_BUCKETNAME: palmoviefun
+    S3_ENDPOINTURL: http://s3.amazonaws.com
+    S3_SECRETKEY: KhT3Dcz0UEIsnPw/U8ot0abAwlJRHCNOoxAh053r
