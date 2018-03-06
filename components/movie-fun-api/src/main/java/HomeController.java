@@ -3,9 +3,8 @@ package org.superbiz.moviefun.moviesapi;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.superbiz.moviefun.albums.Album;
-import org.superbiz.moviefun.albums.AlbumFixtures;
-import org.superbiz.moviefun.albums.AlbumsBean;
-import org.superbiz.moviefun.movies.MoviesRepository;
+import org.superbiz.moviefun.albumsapi.AlbumFixtures;
+import org.superbiz.moviefun.albums.AlbumsRepository;
 
 import java.util.Map;
 
@@ -13,13 +12,13 @@ import java.util.Map;
 public class HomeController {
 
     private final MoviesClient moviesBean;
-    private final AlbumsBean albumsBean;
+    private final AlbumsRepository albumsRepository;
     private final MovieFixtures movieFixtures;
     private final AlbumFixtures albumFixtures;
 
-    public HomeController(MoviesClient moviesBean, AlbumsBean albumsBean, MovieFixtures movieFixtures, AlbumFixtures albumFixtures) {
+    public HomeController(MoviesClient moviesBean, AlbumsRepository albumsRepository, MovieFixtures movieFixtures, AlbumFixtures albumFixtures) {
         this.moviesBean = moviesBean;
-        this.albumsBean = albumsBean;
+        this.albumsRepository = albumsRepository;
         this.movieFixtures = movieFixtures;
         this.albumFixtures = albumFixtures;
     }
@@ -36,11 +35,11 @@ public class HomeController {
         }
 
         for (Album album : albumFixtures.load()) {
-            albumsBean.addAlbum(album);
+            albumsRepository.addAlbum(album);
         }
 
         model.put("movies", moviesBean.getMovies());
-        model.put("albums", albumsBean.getAlbums());
+        model.put("albums", albumsRepository.getAlbums());
 
         return "setup";
     }
