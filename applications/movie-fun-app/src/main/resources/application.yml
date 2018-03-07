@@ -1,3 +1,6 @@
+movies:
+  pagesize: 4
+
 spring:
   application:
     name: movie-fun-app
